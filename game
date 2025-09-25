@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>St Catherine's Poetry Playground</title>
+  <style>
+    body {
+      font-family: 'Avenir Next', 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background: url('https://images.unsplash.com/photo-1607274027228-7d3c45cdcb20?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #172c66;
+      text-align: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #f582ae;
+      background-color: rgba(255, 255, 255, 0.8);
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 12px;
+    }
+
+    .header-image {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    .poem-box {
+      margin-top: 40px;
+      font-size: 2rem;
+      background-color: rgba(214, 246, 214, 0.9);
+      border: 4px dashed #8bd3dd;
+      padding: 30px;
+      border-radius: 15px;
+      min-height: 120px;
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .bounce {
+      animation: bounce 0.6s;
+    }
+
+    @keyframes bounce {
+      0% { transform: scale(1); }
+      30% { transform: scale(1.1); }
+      50% { transform: scale(0.95); }
+      70% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    button {
+      background-color: #ffb703;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.5rem;
+      margin-top: 30px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-family: inherit;
+    }
+
+    button:hover {
+      background-color: #fb8500;
+    }
+
+    /* Optional floating decoration */
+    .decor {
+      position: absolute;
+      width: 50px;
+      z-index: 1;
+    }
+
+    .decor1 {
+      top: -25px;
+      left: -25px;
+    }
+
+    .decor2 {
+      top: -25px;
+      right: -25px;
+    }
+
+    .decor3 {
+      bottom: -25px;
+      left: 40%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header image -->
+  <img src="https://cdn.pixabay.com/photo/2014/04/02/10/01/playground-304974_1280.png" alt="playground icon" class="header-image">
+
+  <h1>🎨 St Catherine's Poetry Playground</h1>
+  <p>Click the button to create a magical poem!</p>
+
+  <div class="poem-box" id="poemBox">
+    <!-- Decorations -->
+    <img src="https://cdn.pixabay.com/photo/2021/08/26/20/04/star-6578545_1280.png" class="decor decor1" alt="Star">
+    <img src="https://cdn.pixabay.com/photo/2022/12/14/13/32/star-7655097_1280.png" class="decor decor2" alt="Star">
+    <img src="https://cdn.pixabay.com/photo/2016/03/31/20/12/crayon-1293505_1280.png" class="decor decor3" alt="Crayon">
+
+    Your poem will appear here...
+  </div>
+
+  <button onclick="generatePoem()">Make a Poem</button>
+
+  <!-- Audio element -->
+  <audio id="chimeSound" src="magic_chime.mp3" preload="auto"></audio>
+
+  <script>
+    const who = [
+      "A dragon", "The moon", "A kitten", "A pirate", "A robot",
+      "The sun", "A fairy", "A dinosaur", "A wizard", "A butterfly"
+    ];
+
+    const doingWhat = [
+      "dances", "sings", "jumps", "giggles", "spins",
+      "whispers", "paints", "stomps", "dreams", "twirls"
+    ];
+
+    const whereHow = [
+      "in the rain", "on a rainbow", "under the stars",
+      "on a flying cloud", "through the jungle", "beside a waterfall",
+      "with a magic brush", "in a puddle", "on a mountain top",
+      "over a candy castle"
+    ];
+
+    function getRandomWord(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function generatePoem() {
+      const line1 = getRandomWord(who);
+      const line2 = getRandomWord(doingWhat);
+      const line3 = getRandomWord(whereHow);
+
+      const poemBox = document.getElementById("poemBox");
+      poemBox.innerHTML = `
+        <img src="https://cdn.pixabay.com/photo/2021/08/26/20/04/star-6578545_1280.png" class="decor decor1" alt="Star">
+        <img src="https://cdn.pixabay.com/photo/2022/12/14/13/32/star-7655097_1280.png" class="decor decor2" alt="Star">
+        <img src="https://cdn.pixabay.com/photo/2016/03/31/20/12/crayon-1293505_1280.png" class="decor decor3" alt="Crayon">
+        ${line1}<br>${line2}<br>${line3}
+      `;
+
+      // Add bounce animation
+      poemBox.classList.remove("bounce");
+      void poemBox.offsetWidth; // reflow
+      poemBox.classList.add("bounce");
+
+      // Play sound
+      const sound = document.getElementById("chimeSound");
+      sound.currentTime = 0;
+      sound.play();
+    }
+  </script>
+</body>
+</html>
